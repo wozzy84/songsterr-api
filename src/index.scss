@@ -1,6 +1,8 @@
+@import 'reset-css';
 @import '../src/App.scss';
 
 @import '../src/components/ResultList/ResultList.scss';
+@import '../src/components/Pagination/pagination.scss';
 
 body {
   margin: 0;
@@ -16,11 +18,11 @@ code {
     monospace;
 }
 
-
 body {
   width: 100vw;
   height: 100vh;
   background-image: url('../src/assets/lee-weng-EblJP0l-r90-unsplash.jpg');
+  background-color: gray;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

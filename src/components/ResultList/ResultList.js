@@ -1,37 +1,40 @@
-import React from 'react'
+import React from 'react';
 
 
-const ResultList = (props) => {
+const ResultList = ({ records }) => {
+
+const trimTabTypes = (tabType) => {
+ 
+    switch (tabType) {
+      case "TEXT_GUITAR_TAB":
+        return "GUITAR"
+      case "TEXT_BASS_TAB":
+        return "BASS"
+      default:
+        return tabType
+    }
   
+}
 
-const handleTabType = (types) => {
-    types.map((e, index)=>{
-        return "asda"
-    })
-}     
 
-if (props.results.length){
-        return (
-        <>
-        <section className="search">
-        <ul>
-            {props.results.map((e, index)=>{
-                return <li>{index+1} {e.artist.name} {e.title} {e.tabTypes.join(', ')}</li>
-            })}
-        </ul>   
-        </section>
+
+  return (
+    <section style={records.length? {display:"1"}: {opacity: "0"}}className="results">
+      <ul className="results__list">
+      {records.map((e, index) => (
+      <li className="list-element">
+        <span className="list-element__number">{index+1}.</span>
+        <span className="list-element__description">
+          <span className="list-element__title">{e.title}</span>
+          <span className="list-element__artist">{e.artist.name}</span>  
+        </span>
+      <span className="list-element__tab-types">{e.tabTypes.map((e, index)=> {return <span className="list-element__type">{trimTabTypes(e)}</span>})}</span>
         
+        </li>
+      ))}
+      </ul>
+</section>
+  );
+};
 
-        </>
-    )
-} else {
-    return (
-        <>
-        </>
-    )
-}
-
-
-}
-
-export {ResultList}
+export default ResultList;
