@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react';
 
+
+  
 import ResultList from './components/ResultList/ResultList'
-import Pagination from './components/Pagination/Pagination'
+
 
 function App() {
 
   const [inputValue, setInputValue] = useState('')
+  const [lastQueury, setLastQuery] = useState('')
   const [searchClick, setSearchClick] = useState(null)
   const [queryResults, setQueryResults] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(10);
+  const [recordsPerPage] = useState(50);
   const indexOfLastPost = currentPage * recordsPerPage;
   const indexOfFirstPost = indexOfLastPost - recordsPerPage;
   const [filters, setFilters] = useState([])
   const [filteredRecords, setFilteredRecords] = useState([])
   const currentRecords = filteredRecords.slice(indexOfFirstPost, indexOfLastPost);
   const style = {backgroundColor: "#7acc54", color: "white", border: "0.75px solid transparent"}
+  const targetElement = document.querySelector("body");
+ 
 
   const paginate = (pageNumber) =>{
         setCurrentPage(pageNumber);
@@ -27,7 +32,10 @@ function App() {
 
   const handleButtonClick = (e) => {
     e.preventDefault()
+    if(inputValue.length>2){
     setSearchClick(!searchClick)
+    setFilters([])
+    }
   }
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +44,7 @@ function App() {
 
   const handleFilterButton = (e) => {
     e.preventDefault()
-    
+
     if(e.currentTarget.id==="all"){
       setFilters(["all"]);
       setFilteredRecords(queryResults)
@@ -49,6 +57,8 @@ function App() {
 
   }
   
+
+
   useEffect(() => {
     if(searchClick!=null) {
     fetch(`http://www.songsterr.com/a/ra/songs.json?pattern=${inputValue}`)
@@ -56,8 +66,10 @@ function App() {
       .then((res) => {
         console.log(res);
         setQueryResults(res)
+        setLastQuery(inputValue)
         setInputValue("")
         setFilteredRecords(res)
+
        
       })
       .catch((err) => {
@@ -76,6 +88,9 @@ function App() {
 
   return (
     <>
+      <div className="container">
+
+     
       <section className="search" >
         <h1 className="search__title" style={queryResults.length? {opacity:0}: null}>Search over 500,000 tabs</h1>
         <form style={queryResults.length? {animation:  "myship 1s forwards"}: null}className="search__form" onSubmit={handleSubmit}>
@@ -85,26 +100,31 @@ function App() {
          />
         
         <button className="search__button" type='button' onClick={handleButtonClick}>Search</button>
-        <div className="search__filters">
+        <div className="search__filters" style={queryResults.length? {opacity:"1", height:"auto"}: {opacity:"0", height:"0", padding: "0"}}>
+          <div className="search__buttons-container">
+
+          
+          <h4>Filter:</h4>
           <button className="search__filter-button" type="button" id="all" onClick={handleFilterButton} style={filters.includes("all")?  style: null}>All</button>
           <button className="search__filter-button" type="button" id="CHORDS" onClick={handleFilterButton} style={filters.includes("CHORDS")?  style: null}>Chords</button>
           <button className="search__filter-button" type="button" id="TEXT_BASS_TAB" onClick={handleFilterButton} style={filters.includes("TEXT_BASS_TAB")?  style: null}>Bass</button>
           <button className="search__filter-button" type="button" id="TEXT_GUITAR_TAB" onClick={handleFilterButton} style={filters.includes("TEXT_GUITAR_TAB")?  style: null}>Guitar</button>
           <button className="search__filter-button" type="button" id="PLAYER" onClick={handleFilterButton} style={filters.includes("PLAYER")?  style: null}>Player</button>
-          <p>{filteredRecords.length} Results...</p>
+          </div>
+        <p className="search__result-summary">{filteredRecords.length} {filteredRecords.length===1? "search result" : "search results" } for "{lastQueury}"</p>
           
         </div>
-        <ResultList records={currentRecords}/>
+        <ResultList records={currentRecords}
+          recordsPerPage={recordsPerPage}
+          totalRecords={filteredRecords.length}
+          paginate={paginate}
+          filters={filters}
+          searchClick={searchClick}/>
       </form>
       
       </section>
   
-      <Pagination
-        recordsPerPage={recordsPerPage}
-        totalRecords={filteredRecords.length}
-        paginate={paginate}
-      
-      />
+      </div>
     </>
   );
 
