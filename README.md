@@ -3,7 +3,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Songsterr TAB search app
 
 A simple search app for the SONGSTERR TAB API.
-This project was a recruitment taksk for Junior React Developer positon
+
+This project was a recruitment task for Junior React Developer positon.
 
 ### [Preview Link](picayune-tax.surge.sh)
 
