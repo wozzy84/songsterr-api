@@ -1,19 +1,25 @@
+input {
+    border-radius: 0;
+}
+
 .container {
     width: 100%;
     min-height: 100vh;
     background-size: cover;
     background-image: url('../src/assets/lee-weng-EblJP0l-r90-unsplash.jpg');
     background-repeat: no-repeat;
-
+    @media (max-width: 730px) {
+        background-image: none;
+    }
 }
-
 
 .search {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    @media (max-width: 500px) {
+    }
     &__title {
         position: absolute;
         top: 150px;
@@ -21,24 +27,34 @@
         font-size: 42px;
         font-weight: bold;
         transition: 1s;
+        @media(max-width: 760px) {
+            font-size: 28px;
+            top:150px;
+        }
     }
-    &__form {
-        
+    &__form { 
         position: absolute;
         top: 250px;
         border: 40px solid rgba($color: white, $alpha: 0.3);
         border-radius: 5px;
         margin-bottom: 20px;
+        @media(max-width: 730px) {
+            border: 20px solid rgba($color: white, $alpha: 0.3);
+            top:200px;
+            widows: 80vw;
+        }
     }
     &__input {
         border:none;
+        font-size: 16px;
         height: 40px;
         width: 80%;
         padding-left:10px;
         padding-right:10px;
         box-sizing: border-box;
         border-top-left-radius: 3px;
-        // border-bottom-left-radius: 3px;
+        @media(max-width: 730px) {     
+        }
     }
     &__button {
         height: 40px;
@@ -48,17 +64,13 @@
         border:none;
         box-sizing: border-box;
         border-top-right-radius: 3px;
-        // border-bottom-right-radius: 3px;
         background-color: #7acc54;
         color: white;
         cursor: pointer;
         box-shadow: none;
-        outline: 0;
-
-        
+        outline: 0;   
     }
     &__filters {
- 
         height: 40px;
         background: white;
         border-top: 0.75px solid gray;
@@ -67,13 +79,13 @@
         padding-top: 10px;
         padding-bottom: 10px;
         padding-left: 10px;
-
+        transition: 0.7s;
     }
     &__buttons-container{
         display: flex; 
         align-items: center;
+        flex-wrap: wrap;
     }
-
     &__filter-button {
         background-color: white;
         border: 0.75px solid gray;
@@ -87,18 +99,39 @@
         outline: 0;
         font-weight: bold;
         &:hover {
-            box-shadow: 2px 2px #7acc54;
-            
-        }
-        
+            box-shadow: 2px 2px #7acc54; 
+        }  
     }
     &__result-summary {
         padding-top: 10px;
         padding-bottom: 10px;
     }
+    &__group {
+        background-color: #7acc54;
+    }
 }
 
 @keyframes myship{
     from {top: 250px;} 
-    to{top:30px;}
+    to{top:30px;}  
+}
+
+@media(max-width: 760px) {
+    @keyframes myship {
+        from {top: 200px}
+        to{top: 30px}        
+    }
+  }
+  .fa-search{ 
+    display: none;
+    @media(max-width: 760px) {
+        display: inline;
+    }
+}
+
+.search__button-text {
+    display: none;
+    @media (min-width: 760px) {
+        display: inline;
+    }
 }

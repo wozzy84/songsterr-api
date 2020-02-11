@@ -1,16 +1,11 @@
-.pagination {
-    
+.pagination { 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     background-color: white;
-  
-
-   
-
-
 }
+
 .pagination__item {
     color: black;
     display: inline-block; 
