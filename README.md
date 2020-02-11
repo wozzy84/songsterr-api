@@ -6,7 +6,7 @@ A simple search app for the SONGSTERR TAB API.
 
 This project was a recruitment task for Junior React Developer positon.
 
-### [Preview Link](picayune-tax.surge.sh)
+### [Preview Link](http://picayune-tax.surge.sh)
 
 ### Tools/Technologies:
 * React.js
